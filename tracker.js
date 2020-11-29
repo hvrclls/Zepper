@@ -49,12 +49,7 @@ function addEmployee() {
       {
         name: "lastName",
         type: "input",
-        message: "Input Employee First Name: ",
-      },
-      {
-        name: "newDepartment",
-        type: "input",
-        message: "Input Employee Department: ",
+        message: "Input Employee Last Name: ",
       },
       {
         name: "newRole",
@@ -62,15 +57,42 @@ function addEmployee() {
         message: "Input Employee Role: ",
       },
       {
+        name: "roleID",
+        type: "input",
+        message: "Input Role ID: ",
+      },
+      {
+        name: "newDepartment",
+        type: "input",
+        message: "Input Employee Department: ",
+      },
+      {
+        name: "departmentID",
+        type: "input",
+        message: "Input Department ID: ",
+      },
+      {
         name: "newSalary",
         type: "input",
         message: "Input Employee Salary: ",
       },
-  ]).then(function(answer){
-      "INSERT INTO employee SET ?",
+  ])
+  .then(function(answer){
+
+    connection.query(
+      "INSERT INTO employees SET ?",
       {
-          
+          first_name: answer.firstName,
+          last_name: answer.lastName,
+          role_id: answer.roleID || 0
+      },
+      function (err) {
+          if (err) throw err
+          console.log("Employee Added!");
+
+          start()
       }
+    )
   })
 }
 
